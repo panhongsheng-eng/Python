@@ -1,0 +1,36 @@
+//导入模块
+import re
+
+import urllib.request
+
+#设置请求头
+headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 Edg/115.0.1901.188"}
+
+#res = urllib.request.urlopen('http://www.baidu.com',timeout=1)
+
+//请求
+request = urllib.request.Request("https://tieba.baidu.com/p/4646954249",headers=headers)
+
+#print(res.read().decode('utf-8'))
+
+//发送请求
+rev = urllib.request.urlopen(request)
+
+#print(rev.read().decode('utf-8'))
+
+html = rev.read().decode()
+
+re_str = "https://imgsa.baidu.com/forum/w%3D580/sign=.*?/.*?\.jpg"
+
+//保存图片
+img_url = re.findall(re_str,html)
+
+for i in img_url :
+    filename = i.split("/")[-1]
+    urllib.request.urlretrieve(i,filename,None)
+
+# print(res.getcode())
+# print(res.status)
+
+
+
